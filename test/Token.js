@@ -1,7 +1,5 @@
 const { expect } = require('chai');
-const { recoverAddress } = require('ethers/lib/utils');
 const { ethers } = require('hardhat');
-const { transform } = require('lodash');
 
 const tokens = (n) => {
     return ethers.utils.parseUnits(n.toString(), 'ether')
@@ -12,7 +10,7 @@ describe('Token\n', () => {
 
   beforeEach(async () => {
     const Token = await ethers.getContractFactory('Token')
-    token = await Token.deploy('Aura Lite', 'ALIT', '10000000')
+    token = await Token.deploy('Aura Lite', 'xAURA', '10000000')
 
     accounts = await ethers.getSigners()
     deployer = accounts[0]
@@ -22,7 +20,7 @@ describe('Token\n', () => {
 
   describe('Deployment', () => {
     const name = 'Aura Lite'
-    const symbol = 'ALIT'
+    const symbol = 'xAURA'
     const decimals = '18'
     const totalSupply = tokens('10000000')
 
