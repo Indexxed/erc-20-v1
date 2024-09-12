@@ -62,7 +62,7 @@ describe('Token\n', () => {
           expect(await token.balanceOf(receiver.address)).to.equal(amount)
         })
     
-        it('emits a transfer event', async () => {
+        it('emits a transfer event\n', async () => {
           const event = result.events[0]
           expect(event.event).to.equal('Transfer')
     
@@ -101,11 +101,22 @@ describe('Token\n', () => {
           expect(await token.allowance(deployer.address, exchange.address)).to.equal(amount)
         })
 
-        
+        it('emits an approval event\n', async () => {
+          const event = result.events[0]
+          expect(event.event).to.equal('Approval')
+      
+          const args = event.args
+          expect(args.owner).to.equal(deployer.address)
+          expect(args.spender).to.equal(exchange.address)
+          expect(args.value).to.equal(amount)
+        })
+
     })
 
     describe('Failure', () => {
-        
+        it('rejects invalid spenders\n', async () => {
+          await expect(token.connect(deployer).approve('0x0000000000000000000000000000000000000000', amount)).to.be.reverted
+        })
     })
 
   })
